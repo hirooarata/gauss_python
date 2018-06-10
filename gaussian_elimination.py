@@ -5,10 +5,11 @@
 # precision : float64
 # precision : float128
 # date: 13 May 2018
+# hirooarata/gauss_python is licensed under the MIT License.
 # References: Numerical recipes in C,
 #           : Scientific calculation handbook(Hayato Togawa),
 #           : Wikipedia, 
-#           : Snippets in internet(Unknown author)
+#           : Code snippets in internet(Unknown author)
 # ---------------------------------------------
 import numpy as np
 from numpy import sqrt, real, imag, zeros, array, abs, sum, float64, float128
