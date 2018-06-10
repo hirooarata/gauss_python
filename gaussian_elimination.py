@@ -1,11 +1,14 @@
 # ---------------------------------------------
 #        Gaussian elemination
 #
-#       Original: C language program
-#       C program author: Unknown
-#       Convert C to Python: Hiroo Arata
-#       precision : float64
-#       precision : float128
+# Author: Hiroo Arata
+# precision : float64
+# precision : float128
+# date: 13 May 2018
+# References: Numerical recipes in C,
+#           : Scientific calculation handbook(Hayato Togawa),
+#           : Wikipedia, 
+#           : Snippets in internet(Unknown author)
 # ---------------------------------------------
 import numpy as np
 from numpy import sqrt, real, imag, zeros, array, abs, sum, float64, float128
