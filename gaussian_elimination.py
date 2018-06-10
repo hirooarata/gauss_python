@@ -1,6 +1,9 @@
 # ---------------------------------------------
 #           Gaussian elemination
-#        with complete pivot selection 
+#        with complete pivot selection
+#
+#        precision : float64
+#        precision : float128
 # ---------------------------------------------
 import numpy as np
 from numpy import sqrt, real, imag, zeros, array, abs, sum, float64, float128
@@ -64,7 +67,6 @@ def complete_pivot_selection(n: int, a: float64, b: float64, ib: int, k: int):
     if abs(akk) < eps:
         print('k=', k)
         print("Matrix singular, Pivot = %1.000e" %akk)
-        err = 1
         return a[k, k]
     return a[k, k]
 
@@ -226,7 +228,6 @@ def complete_pivot_selection_float128(n: int, a: float128, b: float128, ib: int,
     if abs(akk) < eps:
         print('k=', k)
         print("Matrix singular, Pivot = %1.000e" %akk)
-        err = 1
         return a[k, k]
     return a[k, k]
 
@@ -339,9 +340,8 @@ def main():
 
     n = 10  # Matrix size n x n
     # system = ('Windows')
-    system = ('Mac_float64')
-    system = ('Mac_float128')
-    if ('Mac') in system:
+    system = ('Mac_float64','Mac_float128')
+    if ('Mac_float64') in system:
         a = array(zeros((n, n), dtype='float64'))
         b = array(zeros(n, dtype='float64'))
         x = array(zeros(n, dtype='float64'))
@@ -353,7 +353,7 @@ def main():
         er_norm = sqrt(sum(abs(x - x0) ** 2))
         print('er_norm_float64=%5.2e' % er_norm)
 
-    if ('Mac') in system:
+    if ('Mac_float128') in system:
         a = array(zeros((n, n), dtype='float128'))
         b = array(zeros(n, dtype='float128'))
         x = array(zeros(n, dtype='float128'))
