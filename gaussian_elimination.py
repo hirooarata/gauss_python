@@ -63,7 +63,7 @@ def complete_pivot_selection(n: int, a: float64, b: float64, ib: int, k: int):
     eps = 1e-14
     if abs(akk) < eps:
         print('k=', k)
-        print("Matrix singular, Pivot =( %1.000e" % real(akk), ",", "%1.000e)\n" % imag(akk))
+        print("Matrix singular, Pivot = %1.000e" %akk)
         err = 1
         return a[k, k]
     return a[k, k]
@@ -84,7 +84,6 @@ def gaussian_elimination(n: int, a: float64, b: float64, x: float64):
     """
 
     # Forward erasing
-    eps = 1.e-14  # Matrix singular
     ib = zeros(n, dtype=int)
 
     for k in range(n):
@@ -226,7 +225,7 @@ def complete_pivot_selection_float128(n: int, a: float128, b: float128, ib: int,
     eps = 1e-32
     if abs(akk) < eps:
         print('k=', k)
-        print("Matrix singular, Pivot =( %1.000e" % real(akk), ",", "%1.000e)\n" % imag(akk))
+        print("Matrix singular, Pivot = %1.000e" %akk)
         err = 1
         return a[k, k]
     return a[k, k]
@@ -247,7 +246,6 @@ def gaussian_elimination_float128(n: int, a: float128, b: float128, x: float128)
     """
 
     # Forward erasing
-    eps = 1.e-32  # Matrix singular
     ib = zeros(n, dtype=int)
 
     for k in range(n):
