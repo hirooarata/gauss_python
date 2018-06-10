@@ -9,7 +9,7 @@ from numpy import sqrt, real, imag, zeros, array, abs, sum, float64, float128
 
 
 # ---------------------------------------------
-def complete_pivot_selection(n: int, a: float64, b: float64, ib: int, k: int):
+def full_pivot_selection(n: int, a: float64, b: float64, ib: int, k: int):
     """
     int     n       :  Matrix size
     double a[n,n], b[n], x[n]
@@ -89,7 +89,7 @@ def gaussian_elimination(n: int, a: float64, b: float64, x: float64):
 
     for k in range(n):
         # Select complete pivot akk
-        akk = complete_pivot_selection(n, a, b, ib, k)
+        akk = full_pivot_selection(n, a, b, ib, k)
 
         # Normalize row with the pivot akk
         for j in range(k, n):
@@ -170,7 +170,7 @@ def make_hilbert_matrix(n: int, a: float64, b: float64, x0: float64):
 
 
 # ---------------------------------------------
-def complete_pivot_selection_float128(n: int, a: float128, b: float128, ib: int, k: int):
+def full_pivot_selection_float128(n: int, a: float128, b: float128, ib: int, k: int):
     """
     int     n       :  Matrix size
     double a[n,n], b[n], x[n]
@@ -250,7 +250,7 @@ def gaussian_elimination_float128(n: int, a: float128, b: float128, x: float128)
 
     for k in range(n):
         # Select complete pivot akk
-        akk = complete_pivot_selection(n, a, b, ib, k)
+        akk = full_pivot_selection(n, a, b, ib, k)
 
         # Normalize row with the pivot akk
         for j in range(k, n):
