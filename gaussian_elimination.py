@@ -1,27 +1,14 @@
 # Complete pivot selection Gaussian elemination
 # ---------------------------------------------
 import numpy as np
-from numpy import sqrt, real, imag, zeros, array, abs, sum
+from numpy import sqrt, real, imag, zeros, array, abs, sum, float64
 
 
 # ---------------------------------------------
-def cabs(x):
-    """
-    complex abs
-    """
-
-    # import numpy as np
-    # y = real(x) * real(x) + imag(x) * imag(x)
-    # y = sqrt(y)
-    y = abs(x)
-    return y
-
-
-# ---------------------------------------------
-def complete_pivot_selection(n: int, a:double64, b:double64, ib: int, k: int):
+def complete_pivot_selection(n: int, a: float64, b: float64, ib: int, k: int):
     """
     int     n       :  Matrix size
-    complex a[n,n], b[n], x[n]
+    double a[n,n], b[n], x[n]
     ##
     double  abskk   :Absolute value of pivot
     int     ik, jk  :Position of pivot
@@ -41,12 +28,12 @@ def complete_pivot_selection(n: int, a:double64, b:double64, ib: int, k: int):
     # Select pivot
     ik = k
     jk = k
-    abskk = cabs(a[k, k])
+    abskk = abs(a[k, k])
     for j in range(k, n):
         for i in range(k, n):
             akk = a[k, k]
-            if cabs(akk) > abskk:
-                abskk = cabs(akk)
+            if abs(akk) > abskk:
+                abskk = abs(akk)
                 ik = i
                 jk = j
 
@@ -71,20 +58,21 @@ def complete_pivot_selection(n: int, a:double64, b:double64, ib: int, k: int):
         ib[jk] = ibw
 
     # Return pivot
-    if cabs(akk) < eps:
+    eps = 1e-14
+    if abs(akk) < eps:
         print('k=', k)
         print("Matrix singular, Pivot =( %1.000e" % real(akk), ",", "%1.000e)\n" % imag(akk))
         err = 1
-        return err
+        return a[k, k]
     return a[k, k]
 
 
 # --------------------------------------------
-def gaussian_elimination(n, a, b, x):
+def gaussian_elimination(n: int, a: float64, b: float64, x: float64):
     """
     Try to solve linear equation with float64 precision:   a * x = b
-    int n       : Matrix size
-    complex     a[n,n], b[n], x[n]
+    int n        : Matrix size
+    float        : a[n,n], b[n], x[n]
     return：err  : 0=Normal end, 1=Matrix singular
     #
     int     ib[N]      # index for lineup
@@ -101,7 +89,7 @@ def gaussian_elimination(n, a, b, x):
         # Select complete pivot akk
         akk = complete_pivot_selection(n, a, b, ib, k)
 
-        # Normalize row with the pivot
+        # Normalize row with the pivot akk
         for j in range(k, n):
             a[k, j] /= akk
         b[k] /= akk
@@ -132,7 +120,7 @@ def gaussian_elimination(n, a, b, x):
 
 
 # ---------------------------------------------
-def make_random_matrix(n, a, b, x0):
+def make_random_matrix(n: int, a: float64, b: float64, x0: float64):
     """
      Make random matrix for test.
      x[n,1]= a[n,n] * b[n,1]
@@ -155,9 +143,8 @@ def make_random_matrix(n, a, b, x0):
         # print('make_random_matrix:b.dtype=', b.dtype)
         # print('make_random_matrix:x0.dtype=', x0.dtype)
 
-
 # ---------------------------------------------
-def make_hilbert_matrix(n: int, a, b, x0):
+def make_hilbert_matrix(n: int, a: float64, b: float64, x0: float64):
     """
      Make ill conditioned matrix.
      b[n]= a[n,n] * x[n]
@@ -183,14 +170,13 @@ def make_hilbert_matrix(n: int, a, b, x0):
 # ---------------------------------------------
 def main():
     """
-    Solve the complex linear equation 'a x = b' for x.
+    Solve the linear equation 'a x = b' for x.
     where   a[n,n], x[n], b[n]
     """
 
-    n = 4  # Matrix size n x n
+    n = 10  # Matrix size n x n
     system = ('Mac')  # Mac only
     # system = ('Windows')       # Windows only
-    # system = ('Windows', 'Mac')  # both Mac and Windows
     if 'Mac' in system:
         a = zeros((n, n), dtype='float64')
         b = zeros(n, dtype='float64')
@@ -214,16 +200,13 @@ def main():
         # Err
         er_norm = sqrt(sum(abs(x - x0) ** 2))
         print('er_norm=%5.2e' % er_norm)
-        del a
-        del b
-        del x
-        del x0
+
     if ('Windows') in system:
-        # The Windows10 did not support float64. 
-        e = zeros((n, n), dtype='complex128')
-        f = zeros(n, dtype='complex128')
-        y = zeros(n, dtype='complex128')
-        y0 = zeros(n, dtype='complex128')
+        # The python of Windows10 does't support float128.
+        e = zeros((n, n), dtype='float64')
+        f = zeros(n, dtype='float64')
+        y = zeros(n, dtype='float64')
+        y0 = zeros(n, dtype='float64')
         e = array(e)
         f = array(f)
         y = array(y)
@@ -232,6 +215,7 @@ def main():
         # make_hilbert_matrix(n, a, b, x0)
         make_random_matrix(n, e, f, y0)
         y = np.linalg.solve(e, f)
+        # The np.linalg of python does't support float128.
         er_norm = sqrt(sum(abs(y - y0) ** 2))
 
         print('Windows:np.linalg.solve')
@@ -239,8 +223,7 @@ def main():
         print('er_norm=%5.2e' % er_norm)
     return 0
 
-
-code = main()
-print('\nexit code of main()=', code)
-
-
+# ---------------------------------------------
+if __name__ == "__main__":
+    code = main()
+    print('\nexit code of main()=', code)
