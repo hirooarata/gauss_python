@@ -125,7 +125,8 @@ def make_random_matrix(n: int, a: float64, b: float64, x0: float64):
      Make random matrix for test.
      x[n,1]= a[n,n] * b[n,1]
     """
-    t = np.random.randn(n, n) + 1j * np.random.randn(n, n)
+    #t = np.random.randn(n, n) + 1j * np.random.randn(n, n)
+    t = np.random.randn(n, n)
     a[:, :] = t.astype(np.float64)
 
     for i in range(n):
@@ -146,7 +147,7 @@ def make_random_matrix(n: int, a: float64, b: float64, x0: float64):
 # ---------------------------------------------
 def make_hilbert_matrix(n: int, a: float64, b: float64, x0: float64):
     """
-     Make ill conditioned matrix.
+     Make ill conditioned hilbert matrix.
      b[n]= a[n,n] * x[n]
     """
 
@@ -190,11 +191,14 @@ def main():
         # make_random_matrix(n, a, b, x0)
         make_hilbert_matrix(n, a, b, x0)
 
+        # The np.linalg of python does't support float128.
+        # y = np.linalg.solve(e, f)
+
         # print('main:a=', a)
         # print('main:b=', b)
         # print('main:x0=', x0)
 
-        # make_hilbert_matrix(n, a, b, x0)
+        
         print('Mac:gaussian_elimination')
         gaussian_elimination(n, a, b, x)
         # Err
@@ -212,8 +216,8 @@ def main():
         y = array(y)
         y0 = array(y0)
 
-        # make_hilbert_matrix(n, a, b, x0)
-        make_random_matrix(n, e, f, y0)
+        make_hilbert_matrix(n, e, f, y0)
+        # make_random_matrix(n, e, f, y0)
         y = np.linalg.solve(e, f)
         # The np.linalg of python does't support float128.
         er_norm = sqrt(sum(abs(y - y0) ** 2))
