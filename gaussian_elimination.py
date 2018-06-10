@@ -1,6 +1,5 @@
 # ---------------------------------------------
-#           Gaussian elemination
-#        with complete pivot selection
+#        Gaussian elemination
 #
 #        precision : float64
 #        precision : float128
