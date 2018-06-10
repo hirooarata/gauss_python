@@ -103,7 +103,7 @@ def gaussian_elimination(n: int, a: float64, b: float64, x: float64):
                 a[i, j] -= aik * a[k, j]
             b[i] -= aik * b[k]
 
-    # Backward substitution
+    # Backsubstitution
     for i in range(n - 2, -1, -1):
         for j in range(i + 1, n):
             b[i] -= a[i, j] * b[j]
@@ -266,7 +266,7 @@ def gaussian_elimination_float128(n: int, a: float128, b: float128, x: float128)
                 a[i, j] -= aik * a[k, j]
             b[i] -= aik * b[k]
 
-    # Backward substitution
+    # Backsubstitution
     for i in range(n - 2, -1, -1):
         for j in range(i + 1, n):
             b[i] -= a[i, j] * b[j]
