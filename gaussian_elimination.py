@@ -1,4 +1,6 @@
-# Complete pivot selection Gaussian elemination
+# ---------------------------------------------
+#           Gaussian elemination
+#        with complete pivot selection 
 # ---------------------------------------------
 import numpy as np
 from numpy import sqrt, real, imag, zeros, array, abs, sum, float64, float128
